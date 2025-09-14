@@ -1,0 +1,53 @@
+ANIMATION ENGINE GUIDE FOR AI RESPONSES
+
+REQUIRED STRUCTURE:
+{
+  "text": "explanation text",
+  "visualization": {
+    "id": "unique_id",
+    "duration": NUMBER (in milliseconds, REQUIRED!),
+    "layers": [...]
+  }
+}
+
+DURATION CALCULATION:
+- Look at all animation "end" times in your layers
+- Set duration to the highest "end" value + 500ms buffer
+- Example: if max animation end is 4000ms, set duration to 4500
+
+ANIMATION TIMING:
+- start: when animation begins (milliseconds)
+- end: when animation ends (milliseconds)
+- Animations run from start to end time
+- Use progressive timing: 0-1000, 1000-2000, 2000-3000, etc.
+
+LAYER TYPES:
+- circle: needs x, y, r, fill
+- rect: needs x, y, width, height, fill
+- text: needs x, y, text, fill, fontSize
+- line: needs x1, y1, x2, y2, stroke
+- arrow: needs x1, y1, x2, y2, stroke
+
+ANIMATION PROPERTIES:
+- x, y: position
+- r: radius (circles)
+- opacity: 0-1 transparency
+- width, height: dimensions
+
+EXAMPLE WITH DURATION:
+{
+  "visualization": {
+    "id": "example",
+    "duration": 3500,
+    "layers": [
+      {
+        "id": "moving_circle",
+        "type": "circle",
+        "props": {"x": 100, "y": 100, "r": 20, "fill": "#3498db"},
+        "animations": [
+          {"property": "x", "from": 100, "to": 300, "start": 0, "end": 3000}
+        ]
+      }
+    ]
+  }
+}
